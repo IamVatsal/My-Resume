@@ -25,193 +25,316 @@
 %	DOCUMENT DEFINITION
 %----------------------------------------------------------------------------------------
 
-% article class because we want to fully customize the page and not use a cv template
-\documentclass[a4paper,12pt]{article}
+\documentclass[letterpaper,11pt]{article}
 
-%----------------------------------------------------------------------------------------
-%	FONT
-%----------------------------------------------------------------------------------------
-
-% % fontspec allows you to use TTF/OTF fonts directly
-% \usepackage{fontspec}
-% \defaultfontfeatures{Ligatures=TeX}
-
-% % modified for ShareLaTeX use
-% \setmainfont[
-% SmallCapsFont = Fontin-SmallCaps.otf,
-% BoldFont = Fontin-Bold.otf,
-% ItalicFont = Fontin-Italic.otf
-% ]
-% {Fontin.otf}
-
-%----------------------------------------------------------------------------------------
-%	PACKAGES
-%----------------------------------------------------------------------------------------
-\usepackage{url}
-\usepackage{parskip} 	
-
-%other packages for formatting
-\RequirePackage{color}
-\RequirePackage{graphicx}
-\usepackage[usenames,dvipsnames]{xcolor}
-\usepackage[scale=0.9]{geometry}
-
-%tabularx environment
-\usepackage{tabularx}
-
-%for lists within experience section
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
 \usepackage{enumitem}
-
-% centered version of 'X' col. type
-\newcolumntype{C}{>{\centering\arraybackslash}X} 
-
-%to prevent spillover of tabular into next pages
-\usepackage{supertabular}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
 \usepackage{tabularx}
-\newlength{\fullcollw}
-\setlength{\fullcollw}{0.47\textwidth}
-
-%custom \section
-\usepackage{titlesec}				
-\usepackage{multicol}
-\usepackage{multirow}
-
-%CV Sections inspired by: 
-%http://stefano.italians.nl/archives/26
-\titleformat{\section}{\Large\scshape\raggedright}{}{0em}{}[\titlerule]
-\titlespacing{\section}{0pt}{10pt}{10pt}
-
-%for publications
-\usepackage[style=authoryear,sorting=ynt, maxbibnames=2]{biblatex}
-
-%Setup hyperref package, and colours for links
-\usepackage[unicode, draft=false]{hyperref}
-\definecolor{linkcolour}{rgb}{0,0.2,0.6}
-\hypersetup{colorlinks,breaklinks,urlcolor=linkcolour,linkcolor=linkcolour}
-\addbibresource{citations.bib}
-\setlength\bibitemsep{1em}
-
-%for social icons
 \usepackage{fontawesome5}
-
-%debug page outer frames
-%\usepackage{showframe}
-
-
-% job listing environments
-\newenvironment{jobshort}[2]
-    {
-    \begin{tabularx}{\linewidth}{@{}l X r@{}}
-    \textbf{#1} & \hfill &  #2 \\[3.75pt]
-    \end{tabularx}
-    }
-    {
-    }
-
-\newenvironment{joblong}[2]
-    {
-    \begin{tabularx}{\linewidth}{@{}l X r@{}}
-    \textbf{#1} & \hfill &  #2 \\[3.75pt]
-    \end{tabularx}
-    \begin{minipage}[t]{\linewidth}
-    \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
-    }
-    {
-    \end{itemize}
-    \end{minipage}    
-    }
+\usepackage{multicol}
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\input{glyphtounicode}
 
 
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
 
-%----------------------------------------------------------------------------------------
-%	BEGIN DOCUMENT
-%----------------------------------------------------------------------------------------
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.19in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
+
+\linespread{1.05}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-1pt}}
+  }
+}
+
+\newcommand{\classesList}[4]{
+    \item\small{
+        {#1 #2 #3 #4 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{\small #2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \vspace{-4pt}
+    \item
+    \begin{tabular*}{1.001\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & \textbf{\small #2}\\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}}
+
+\renewcommand\labelitemi{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+
+
+\hypersetup{
+  pdfauthor={Vatsal Patel},
+  pdftitle={Resume - Vatsal Patel},
+  pdfsubject={Software Engineering Internship},
+  pdfkeywords={Next.js, Node.js, MongoDB, PostgreSQL, Full-Stack, Internship}
+}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \begin{document}
 
-% non-numbered pages
-\pagestyle{empty} 
+%----------HEADING----------
+% \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+%   \textbf{\href{http://sourabhbajaj.com/}{\Large Sourabh Bajaj}} & Email : \href{mailto:sourabh@sourabhbajaj.com}{sourabh@sourabhbajaj.com}\\
+%   \href{http://sourabhbajaj.com/}{http://www.sourabhbajaj.com} & Mobile : +1-123-456-7890 \\
+% \end{tabular*}
 
-%----------------------------------------------------------------------------------------
-%	TITLE
-%----------------------------------------------------------------------------------------
+\begin{center}
+    {
+\LARGE \scshape Vatsal Patel} \\ \vspace{1pt}
+Mahavirnagar, Himatnagar, Gujarat 383001 \\ \vspace{1pt}
 
-% \begin{tabularx}{\linewidth}{ @{}X X@{} }
-% \huge{Your Name}\vspace{2pt} & \hfill \emoji{incoming-envelope} email@email.com \\
-% \raisebox{-0.05\height}\faGithub\ username \ | \
-% \raisebox{-0.00\height}\faLinkedin\ username \ | \ \raisebox{-0.05\height}\faGlobe \ mysite.com  & \hfill \emoji{calling} number
-% \end{tabularx}
+\small \href{tel:+919157910972}{\raisebox{-0.1\height}\faPhone\ +91-915-791-0972} ~ 
+\href{mailto:vatsalpatel0609@gmail.com}{\raisebox{-0.2\height}\faEnvelope\  \underline{vatsalpatel0609@gmail.com}} ~ 
+\href{https://linkedin.com/in/vatsal-patel0609/}{\raisebox{-0.2\height}\faLinkedin\ \underline{vatsal-patel0609}}  ~
+\href{https://github.com/IamVatsal}{\raisebox{-0.2\height}\faGithub\ \underline{IamVatsal}} ~
+\href{https://vatsal.live}{\raisebox{-0.2\height}\faGlobe\ \underline{vatsal.live}}
+\end{center}
 
-\begin{tabularx}{\linewidth}{@{} C @{}}
-\Huge{Your Name} \\[7.5pt]
-\href{https://github.com/username}{\raisebox{-0.05\height}\faGithub\ username} \ $|$ \ 
-\href{https://linkedin.com/in/username}{\raisebox{-0.05\height}\faLinkedin\ username} \ $|$ \ 
-\href{https://mysite.com}{\raisebox{-0.05\height}\faGlobe \ mysite.com} \ $|$ \ 
-\href{mailto:email@mysite.com}{\raisebox{-0.05\height}\faEnvelope \ email@mysite.com} \ $|$ \ 
-\href{tel:+000000000000}{\raisebox{-0.05\height}\faMobile \ +00.00.000.000} \\
-\end{tabularx}
 
-%----------------------------------------------------------------------------------------
-% EXPERIENCE SECTIONS
-%----------------------------------------------------------------------------------------
-
-%Interests/ Keywords/ Summary
+%-----------Summery-----------
 \section{Summary}
-This CV can also be automatically compiled and published using GitHub Actions. For details, \href{https://github.com/jitinnair1/autoCV}{click here}.
+\begin{itemize}[leftmargin=0.15in, label={}]
+  \small{\item{
+   Computer Engineering student interested in AI, embedded systems, and software engineering. Passionate about building systems from first principles to understand machine learning, real-time software, and modern backend architectures.
+  }}
+\end{itemize}
 
-%Experience
-\section{Work Experience}
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
 
-\begin{jobshort}{Designation}{Jan 2021 - present}
-long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width
-\end{jobshort}
+    \resumeSubheading
+      {AAOJI SHOPY PVT LTD}{May 2026 -- June 2026}
+      {Software Engineer Intern}{Himatnagar, Gujarat}
+      \resumeItemListStart
+        \resumeItem{Improved the company's website UI by refining layouts and enhancing user experience.}
+        \resumeItem{Maintained and updated website content, ensuring functionality and consistency across pages.}
+        \resumeItem{Fixed minor UI issues and collaborated with the team to implement design improvements.}
+      \resumeItemListEnd
 
+    % \resumeSubheading
+    %   {Startup, Inc}{May 2019 -- August 2019}
+    %   {Front End Developer Intern}{City, State}
+    %   \resumeItemListStart
+    %     \resumeItem{Assisted in development of the front end of a mobile application for iOS/Android using Dart and the Flutter framework.}
+    %     \resumeItem{Worked with Google Firebase to manage user inputted data across multiple platforms including web and mobile apps.}
+    %     \resumeItem{Collaborated with team members using version control systems such as Git to organize modifications and assign tasks.}
+    %     \resumeItem{Utilized Android Studio as a development environment in order to visualize the application in both iOS and Android.}
+    % \resumeItemListEnd
+    
+  \resumeSubHeadingListEnd
 
-\begin{joblong}{Designation}{Mar 2019 - Jan 2021}
-\item long long line of blah blah that will wrap when the table fills the column width
-\item again, long long line of blah blah that will wrap when the table fills the column width but this time even more long long line of blah blah. again, long long line of blah blah that will wrap when the table fills the column width but this time even more long long line of blah blah
-\end{joblong}
-  
-%Projects
+%-----------PROJECTS-----------
 \section{Projects}
+% \vspace{-5pt}
+\resumeSubHeadingListStart
 
-\begin{tabularx}{\linewidth}{ @{}l r@{} }
-\textbf{Some Project} & \hfill \href{https://some-link.com}{Link to Demo} \\[3.75pt]
-\multicolumn{2}{@{}X@{}}{long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width}  \\
-\end{tabularx}
+    \resumeProjectHeading
+      {\textbf{\href{https://github.com/IamVatsal/NanoNet}{NanoNet — Neural Network Framework From Scratch}} $|$ \emph{Python, NumPy}}{Dec 2025}
+      \resumeItemListStart
+        \resumeItem{Developed a neural network framework from scratch implementing forward/backward propagation, multiple optimizers (SGD, Adam, RMSProp, Momentum, Nesterov), and learning-rate schedulers.}
+        \resumeItem{Implemented mini-batch, stochastic, and batch gradient descent with L1/L2 regularization, gradient clipping, and He initialization.}
+        \resumeItem{Validated the framework by training an MLP on the MNIST dataset, achieving 97.3\% test accuracy and 99.0\% training accuracy while demonstrating convergence across multiple optimization algorithms.}
+      \resumeItemListEnd
+      \vspace{-20pt}
 
-%----------------------------------------------------------------------------------------
-%	EDUCATION
-%----------------------------------------------------------------------------------------
+    \resumeProjectHeading
+      {\textbf{\href{https://github.com/IamVatsal/Smart_Helmet}{Smart Helmet — IoT Emergency Detection System}} $|$ \emph{ESP8266, Arduino, FastAPI, React Native, Firebase}}{Apr 2026}
+      \resumeItemListStart
+        \resumeItem{Developed ESP8266 firmware to detect abnormal acceleration using an MPU6050 sensor and trigger emergency workflows.}
+        \resumeItem{Built a FastAPI backend to process telemetry and send emergency email alerts with live location.}
+        \resumeItem{Integrated embedded hardware, backend APIs, and a mobile app into an IoT emergency alert system.}
+      \resumeItemListEnd
+      \vspace{-20pt}
+      
+  \resumeProjectHeading
+      {\textbf{\href{https://github.com/IamVatsal/NanoBook}{NanoBook — Grounded RAG System for Technical Knowledge}} $|$ \emph{Next.js, TypeScript, Qdrant, LangChain}}{Dec 2025}
+      \resumeItemListStart
+        \resumeItem{Built a Retrieval-Augmented Generation pipeline using semantic search and vector embeddings to ground LLM responses.}
+        \resumeItem{Integrated Qdrant vector search with LangChain and OpenAI APIs to reduce hallucinations on technical queries.}
+        \resumeItem{Implemented document chunking and embedding strategies to improve retrieval relevance and response quality.}
+      \resumeItemListEnd
+      \vspace{-20pt}
+
+    \resumeProjectHeading
+      {\textbf{\href{https://github.com/IamVatsal/Blog_App_Nextjs}{Blog Platform — Full-Stack Blogging Platform}} $|$ \emph{Next.js 14, TypeScript, MongoDB, NextAuth}}{June 2025}
+      \resumeItemListStart
+        \resumeItem{Developed a full-stack blogging platform using Next.js 14 App Router, MongoDB, and NextAuth with Google OAuth.}
+        \resumeItem{Implemented React Server Components, hybrid rendering, markdown editing, and optimized database queries using Mongoose.}
+        \resumeItem{Designed the application using React Server Components and client components to improve performance.}
+        % \resumeItem{\textbf{Live}: \href{https://blog-app-nextjs-blush.vercel.app/}{\texttt{blog-app-nextjs-blush.vercel.app}} \quad \textbf{GitHub}: \href{https://github.com/IamVatsal/Blog_App_Nextjs}{\texttt{github.com/IamVatsal/Blog\_App\_Nextjs}}}
+      \resumeItemListEnd
+
+  % \resumeProjectHeading
+  %     {\textbf{NanoBook — Grounded RAG System for Technical Knowledge} $|$ \emph{Next.js, TypeScript, Qdrant, LangChain}}{Dec 2025}
+  %     \resumeItemListStart
+  %       \resumeItem{Built a Retrieval-Augmented Generation (RAG) pipeline using semantic search and vector embeddings to provide context-aware LLM responses.}
+  %       \resumeItem{Integrated document retrieval with LLM inference to reduce hallucinations on technical questions.}
+  %       \resumeItem{Explored embedding generation, document chunking, and retrieval strategies to improve answer relevance.}
+  %       \resumeItem{\textbf{Live}: \href{https://blog-app-nextjs-blush.vercel.app/}{\texttt{blog-app-nextjs-blush.vercel.app}} \quad \textbf{GitHub}: \href{https://github.com/IamVatsal/Blog_App_Nextjs}{\texttt{github.com/IamVatsal/Blog\_App\_Nextjs}}}
+  %     \resumeItemListEnd
+  %     % \vspace{-13pt}
+
+\resumeSubHeadingListEnd
+
+
+
+
+%
+%-----------PROGRAMMING SKILLS-----------
+\section{Technical Skills}
+% \vspace{3pt}
+ \begin{itemize}[leftmargin=0in, label={}]
+    \small{\item{
+     \textbf{Languages}{: C, C++, Python, Java, TypeScript, SQL} \\
+     \textbf{Frameworks \& Libraries}{: Next.js, React, Node.js, Express.js, FastAPI, NumPy} \\
+     \textbf{AI \& Machine Learning}{: Neural Networks, Retrieval-Augmented Generation (RAG), Vector Search, LLM APIs} \\
+     \textbf{Databases}{: PostgreSQL, MongoDB, MySQL, SQLite, Qdrant} \\
+     \textbf{Tools \& Technologies}{: Git, GitHub, Docker, Linux, REST APIs, Firebase, Embedded Systems} \\
+    }}
+ \end{itemize}
+
+ %-----------Certifications---------------
+% \section{Certifications}
+% \vspace{-5pt}
+% \resumeSubHeadingListStart
+
+%   \resumeProjectHeading
+%       {\textbf{Problem Solving Through Programming in C} $|$ \emph{NPTEL}}{Apr 2025}
+% \vspace{-30pt}
+%   \resumeProjectHeading
+%       {\textbf{Fundamentals of Object-Oriented Programming} $|$ \emph{NPTEL}}{Apr 2025}
+% \vspace{-30pt}
+%   \resumeProjectHeading
+%       {\textbf{The Complete Full-Stack Web Development Bootcamp} $|$ \emph{Udemy}}{Feb 2024}
+% \vspace{-10pt}
+% \resumeSubHeadingListEnd
+
+
+%-----------EDUCATION-----------
 \section{Education}
-\begin{tabularx}{\linewidth}{@{}l X@{}}	
-2030 - present & PhD (Subject) at \textbf{University} \hfill \normalsize (GPA: 4.0/4.0) \\
+    \resumeSubHeadingListStart
+    \resumeSubheading
+      {Ganpat University}{Aug. 2024 -- Present}
+      {Bachelor of Technology in Computer Engineering $|$ GPA: 8.59/10}{Mehsana, Gujarat}
+  \resumeSubHeadingListEnd 
 
-2023 - 2027 & Bachelor's Degree at \textbf{College} \hfill (GPA: 4.0/4.0) \\ 
+%------RELEVANT COURSEWORK-------
+% \section{Relevant Coursework}
+% \begin{multicols}{2}
+%   \begin{itemize}[itemsep=2pt, parsep=2pt, leftmargin=*]
+%     \item Data Structures and Algorithms
+%     \item Object-Oriented Programming
+%     \item Database Management Systems
+%     \item Web Development
+%   \end{itemize}
+% \end{multicols}
+% \vspace*{2.0\multicolsep}     
 
-2022 & Class 12th Some Board \hfill  (Grades) \\
 
-2021 & Class 10th Some Board \hfill  (Grades) \\
-\end{tabularx}
+% -----------Achievements---------------
+\section{Achievements}
+    % \resumeSubHeadingListStart
+        % \resumeSubheading{National Service Scheme (NSS)}{Feb 2024 -- Present}{Member}{Ganpat University}
+            \resumeItemListStart
+                \resumeItem{2nd Place – Convergence 2026 Hackathon (Smart Helmet Emergency Detection System)}
+                \vspace{-7pt}
+                \resumeItem{GitHub Foundations Certified}
+                \vspace{-7pt}
+                \resumeItem{Google Cloud Study Jam 2025}
+            \resumeItemListEnd
+            
+    % \resumeSubHeadingListEnd
 
-%----------------------------------------------------------------------------------------
-%	PUBLICATIONS
-%----------------------------------------------------------------------------------------
-\section{Publications}
-\begin{refsection}[citations.bib]
-\nocite{*}
-\printbibliography[heading=none]
-\end{refsection}
 
-%----------------------------------------------------------------------------------------
-%	SKILLS
-%----------------------------------------------------------------------------------------
-\section{Skills}
-\begin{tabularx}{\linewidth}{@{}l X@{}}
-Some Skills &  \normalsize{This, That, Some of this and that etc.}\\
-Some More Skills  &  \normalsize{Also some more of this, Some more that, And some of this and that etc.}\\  
-\end{tabularx}
+%-----------INVOLVEMENT---------------
+% \section{Leadership / Extracurricular}
+%     \resumeSubHeadingListStart
+%         \resumeSubheading{National Service Scheme (NSS)}{Feb 2024 -- Present}{Member}{Ganpat University}
+%             \resumeItemListStart
+%                 \resumeItem{Volunteered in a blood donation drive and raised awareness about its importance.}
+%                 \resumeItem{Participated in cultural programs to promote engagement and creativity.}
+%                 \resumeItem{Promoted teamwork and service through direct community interaction.}
+%             \resumeItemListEnd
+        
+%     \resumeSubHeadingListEnd
 
-\vfill
-\center{\footnotesize Last updated: \today}
 
 \end{document}
+
