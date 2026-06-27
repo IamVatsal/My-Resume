@@ -1,54 +1,50 @@
-# autoCV
+# Resume
 
-A clean CV template in LaTeX along with a GitHub action that complies the `*.tex` file and publishes a new PDF version when new changes are pushed to the repo
+My resume is written in **LaTeX** and automatically built and deployed using **GitHub Actions** and **GitHub Pages**.
 
-## Template Design
+Every time I push changes to this repository:
 
-The template is designed to be clean with sections for
-- Tabular sections for Work Experience, Education and Projects
-- Support for including a list of publications read from a `*.bib` file
-- Header with Font Awesome icons
+1. The LaTeX source is compiled into a PDF.
+2. The latest resume is deployed via GitHub Pages.
+3. My portfolio redirects **https://vatsal.live/resume** to the newest version automatically.
 
-## Quickstart
-- Generate your copy of the repo using the `Use this template` button
-- Give the workflow write permissions for your forked repo (Settings -> Actions -> General)
-- Modify the `cv.tex` file and push changes to your repo
-- Set GitHub pages source to build branch (Settings -> Pages)
-- The complied PDF will be available under the `build` branch
+This ensures that every shared resume link always points to the latest version.
 
-You can get a direct link to the generated PDF which you can use on your website, LinkedIn etc. that will always point to the latest version of your CV. Once your site is published, your CV will be accessible at: `https://username.github.io/repo-name/`
+## Tech Stack
 
-NOTE: For the direct link to work, after editing your copy of `cv.tex` and pushing changes to your repo, under Settings -> Pages set your Github Pages source to the `build` directory
+* LaTeX
+* GitHub Actions
+* GitHub Pages
 
-![](https://i.imgur.com/lwATw1o.png)
+## Local Development
 
-## This template on Overleaf
+Compile the resume locally:
 
-<a href="https://www.overleaf.com/latex/templates/autocv/scfvqfpxncwb"><img alt="Overleaf" src="https://img.shields.io/badge/Overleaf-47A141.svg?style=for-the-badge&logo=Overleaf&logoColor=white"/></a>
+```bash
+make
+```
 
-Also, if you have a premium subscription to Overleaf, you can use Overleaf's GitHub integration to push changes to your GitHub repo directly from Overleaf.
+Clean generated files:
 
-## Compiling the CV on your local computer
-- type `make` in the `autoCV` directory to produce file `cv.pdf`
-- you can optionally type `make clean` or `make distclean` to remove intermediate files
+```bash
+make clean
+```
 
-## Detailed Instructions..
+or
 
-[.. are available here](https://github.com/jitinnair1/autoCV/wiki/How-to-use-autoCV:-Detailed-Instructions)
+```bash
+make distclean
+```
 
-## More options
-- If you'd like a custom URL like `cv.name.com` check out [this page](https://github.com/jitinnair1/autoCV/wiki/Custom-URL-for-your-CV)
-- If you want to add use different versions of the CV for different langauges, you can modify the script [as seen here](https://github.com/MateusRosario/myAutoCV/blob/main/.github/workflows/build.yml) (from Mateus Rosario's [fork](https://github.com/MateusRosario/myAutoCV) of this repo)  
+## Resume
 
-## Issues
-Please start a new discussion or issue if you encounter problems
+📄 Latest Resume
 
-PS: If you liked the template, do star :star: it! Thanks!
+**https://vatsal.live/resume**
 
+## Acknowledgements
 
-### Also, check out:
+This repository is based on the excellent **autoCV** template by Jitin Nair, with modifications for my own resume structure and automated deployment workflow.
 
-- [gradfolio](https://github.com/jitinnair1/gradfolio) - a minimal, quick-setup template for a personal website/portfolio
-- [Tail](https://github.com/jitinnair1/tail) - a minimal, quick-setup template for a blog
-- [snippet-book](https://github.com/jitinnair1/snippet-book) -terminal style, clean Jekyll blog theme with catppuccin colours
-
+Original project:
+https://github.com/jitinnair1/autoCV
